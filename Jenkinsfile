@@ -51,7 +51,7 @@ pipeline {
                     sh 'kubectl config use-context arn:aws:eks:eu-west-3:507569708173:cluster/aws-k8s-react-app'
                     //sh 'kubectl apply -f infra/aws-auth-cm.yml'
                     sh 'kubectl apply -f infra/k8s-config.yml'
-                    sh "kubectl set image clequinio/aws-k8s-react-app"
+                    sh "kubectl set image  deployments/aws-k8s-react-app-project aws-k8s-react-app-project=clequinio/aws-k8s-react-app:latest"
                     sh "kubectl get nodes"
                     sh "kubectl get deployment"
                     sh "kubectl get pod -o wide"
