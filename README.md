@@ -1,4 +1,4 @@
-# Deployment of a create-react-app application in AWS using Docker and Kubernetes and through a Jenkins pipeline
+# Deployment of a create-react-app application in AWS through a Jenkins pipeline using Docker and Kubernetes
 
 ## Stack
 
