@@ -4,7 +4,7 @@ pipeline {
         npm_config_cache = 'npm-cache'
     }
     stages {
-        stage('Check') {
+        stage('Check versions') {
             steps {
                 sh 'aws --version'
                 sh 'eksctl version'
