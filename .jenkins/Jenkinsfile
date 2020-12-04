@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        docker { image 'node:latest'}
-    }
+    agent any
     environment {
         npm_config_cache = 'npm-cache'
     }
