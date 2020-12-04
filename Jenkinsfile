@@ -32,13 +32,13 @@ pipeline {
         }
         stage('Dockerize') {
             steps {
-                sh 'docker build . -f infra/Dockerfile -t clequinio/aws-k8s-react-app'
+                sh "docker build . -f infra/Dockerfile -t clequinio/aws-k8s-react-app:${env.BUILD_TAG}"
             }
         }
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry([url: "", credentialsId: "docker-credentials"]) {
-                    sh "docker push clequinio/aws-k8s-react-app"
+                    sh "docker push clequinio/aws-k8s-react-app:${env.BUILD_TAG}"
                 }
             }
         }
