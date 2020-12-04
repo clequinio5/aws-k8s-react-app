@@ -32,7 +32,7 @@ pipeline {
                 sh "npm run build"
             }
         }
-        stage("Dockerize") {
+        stage("Dockerize app") {
             steps {
                 sh "docker build . -f infra/Dockerfile -t clequinio/aws-k8s-react-app:${env.BUILD_TAG}"
             }

@@ -20,7 +20,7 @@
 
 ## Overview
 
-
+![Overview](./assets/aws-k8s-react-app.png)
 
 ## Deployment
 
