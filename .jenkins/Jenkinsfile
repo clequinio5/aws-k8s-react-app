@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        HOME = '.'
         npm_config_cache = 'npm-cache'
     }
     stages {
