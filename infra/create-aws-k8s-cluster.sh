@@ -7,5 +7,3 @@ eksctl create cluster \
 --nodes-min 1 \
 --nodes-max 4 \
 --managed
-
-eksctl get cluster --name=aws-k8s-react-app

@@ -7,6 +7,8 @@ pipeline {
         stage('Check') {
             steps {
                 sh 'aws --version'
+                sh 'eksctl version'
+                sh 'kubectl version'
                 sh 'docker --version'
                 sh 'node --version'
                 sh 'npm --version'
@@ -44,9 +46,10 @@ pipeline {
             steps{
                 echo 'Deploying to AWS...'
                 withAWS(credentials: 'aws-credentials', region: 'eu-west-3') {
+                    sh './infra/exist-aws-k8s-cluster.sh || ./infra/create-aws-k8s-cluster.sh || exit 0'
                     sh "aws eks --region eu-west-3 update-kubeconfig --name aws-k8s-react-app"
                     sh 'kubectl config use-context arn:aws:eks:us-east-1:507569708173:cluster/aws-k8s-react-app'
-                    sh 'kubectl apply -f k8s-config.yml'
+                    sh 'kubectl apply -f infra/k8s-config.yml'
                     sh "kubectl get nodes"
                     sh "kubectl get deployment"
                     sh "kubectl get pod -o wide"
@@ -57,7 +60,7 @@ pipeline {
     }
     stage("Cleaning up") {
             steps{
-                sh 'echo Cleaning up...'
+                echo 'Cleaning up...'
                 sh "docker system prune"
             }
     }

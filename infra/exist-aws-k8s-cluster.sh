@@ -1,0 +1,1 @@
+eksctl get cluster --name=aws-k8s-react-app
