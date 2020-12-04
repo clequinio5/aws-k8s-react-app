@@ -9,7 +9,6 @@ pipeline {
               steps {
                   sh 'node --version'
                   sh 'npm --version'
-                  sh 'chown -R 113:119 "/.npm"'
               }
          }
          stage('Build') {
