@@ -1,8 +1,6 @@
 pipeline {
     agent {
-        docker {
-            image 'node:latest'
-        }
+        docker { image 'node:latest'}
     }
     environment {
         HOME = '.'
@@ -13,6 +11,7 @@ pipeline {
             steps {
                 sh 'node --version'
                 sh 'npm --version'
+                sh 'ls'
             }
         }
         stage('Build') {
