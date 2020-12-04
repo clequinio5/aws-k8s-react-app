@@ -1,40 +1,32 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:latest'}
+    }
     environment {
         HOME = '.'
         npm_config_cache = 'npm-cache'
     }
     stages {
         stage('Check') {
-            agent {
-                docker { image 'node:latest'}
-            }
             steps {
+                sh 'aws --version'
+                sh 'docker --version'
                 sh 'node --version'
                 sh 'npm --version'
                 sh 'ls'
             }
         }
         stage('Build') {
-            agent {
-                docker { image 'node:latest'}
-            }
             steps {
                 sh 'npm install'
             }
         }
         stage('Test') {
-            agent {
-                docker { image 'node:latest'}
-            }
             steps {
                 sh 'CI=true npm test'
             }
         }
         stage('Release') {
-            agent {
-                docker { image 'node:latest'}
-            }
             steps {
                 sh 'npm build'
             }
