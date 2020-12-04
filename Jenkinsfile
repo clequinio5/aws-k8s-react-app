@@ -8,7 +8,7 @@ pipeline {
             steps {
                 sh 'aws --version'
                 sh 'eksctl version'
-                sh 'kubectl version'
+                sh 'kubectl version 2>&1 | tr -d "\n"'
                 sh 'docker --version'
                 sh 'node --version'
                 sh 'npm --version'
