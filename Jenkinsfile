@@ -25,12 +25,12 @@ pipeline {
         }
         stage('Release') {
             steps {
-                sh 'npm build'
+                sh 'npm run build'
             }
         }
         stage('Dockerize') {
             steps {
-                sh 'docker build . -f .jenkins/Dockerfile -t clequinio/aws-k8s-react-app'
+                sh 'docker build . -f infra/Dockerfile -t clequinio/aws-k8s-react-app'
             }
         }
         stage('Push Docker Image') {
