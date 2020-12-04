@@ -36,7 +36,6 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry([url: "", credentialsId: "docker-credentials"]) {
-                    sh "docker tag clequinio/aws-k8s-react-app"
                     sh "docker push clequinio/aws-k8s-react-app"
                 }
             }
