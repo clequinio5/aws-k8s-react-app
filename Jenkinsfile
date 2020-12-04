@@ -59,10 +59,10 @@ pipeline {
                 }
             }
     }
-    stage("Cleaning up") {
+    stage("Remove all unused containers, networks, images") {
             steps{
                 echo 'Cleaning up...'
-                sh "docker system prune"
+                sh "docker system prune -f"
             }
     }
     }
