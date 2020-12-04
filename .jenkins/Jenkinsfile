@@ -1,10 +1,16 @@
 pipeline {
      agent {
         docker {
-            image 'node:12'
+            image 'node:13'
         }
     }
      stages {
+         stage('Check') {
+              steps {
+                  sh 'node --version'
+                  sh 'npm --version'
+              }
+         }
          stage('Build') {
               steps {
                   sh 'npm install'
