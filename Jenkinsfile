@@ -60,16 +60,20 @@ pipeline {
         }
         stage("Deploy the new app dockerized") {
             steps{
-                sh "kubectl set image deployment/aws-k8s-react-app-deployment aws-k8s-react-app=clequinio/aws-k8s-react-app:${env.BUILD_TAG}"
+                withAWS(credentials: "aws-credentials", region: "eu-west-3") {
+                    sh "kubectl set image deployment/aws-k8s-react-app-deployment aws-k8s-react-app=clequinio/aws-k8s-react-app:${env.BUILD_TAG}"
+                }
             }
         }
         stage("Test deployment") {
             steps{
-                sh "kubectl get nodes"
-                sh "kubectl get deployment"
-                sh "kubectl get pod -o wide"
-                sh "kubectl get service/service-aws-k8s-react-app"
-                sh "curl \$(kubectl get service/service-aws-k8s-react-app --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+                withAWS(credentials: "aws-credentials", region: "eu-west-3") {
+                    sh "kubectl get nodes"
+                    sh "kubectl get deployment"
+                    sh "kubectl get pod -o wide"
+                    sh "kubectl get service/service-aws-k8s-react-app"
+                    sh "curl \$(kubectl get service/service-aws-k8s-react-app --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+                }
             }
         }
         stage("Remove all unused containers, networks, images") {
