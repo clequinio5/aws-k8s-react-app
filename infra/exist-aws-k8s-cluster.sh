@@ -1,1 +1,1 @@
-eksctl get cluster --name=aws-k8s-react-app
+eksctl get cluster --name=aws-k8s-react-app --region=eu-west-3
