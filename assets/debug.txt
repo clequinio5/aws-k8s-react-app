@@ -1,1 +1,1 @@
-docker run -p 80:80 clequinio/aws-k8s-react-app:latest
+docker run -p 80:80 clequinio/aws-k8s-react-app:jenkins-aws-k8s-react-app-42
