@@ -2,14 +2,21 @@
 
 ## Stack
 
+### Software
+
+- NodeJS
+- ReactJS
+- Webpack
+- Babel
+
+### CI/CD
+
 - Github
 - Jenkins
 - AWS cli
-- AWS eksctl
+- eksctl
+- Docker
 - Kubernetes
 
-## Deployment
+## Overview
 
-1) Create Kubernetes cluster thanks to ./jenkins/create-aws-k8s-cluster.sh
-
-2) Set up a Jenkins Instance with aws-cli and docker
