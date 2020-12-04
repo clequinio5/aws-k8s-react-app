@@ -46,7 +46,8 @@ pipeline {
         }
         stage("Cleaning up") {
               steps{
-                    sh script "docker system prune", label "Cleaning up..."
+                    sh 'echo Cleaning up...'
+                    sh "docker system prune"
               }
         }
      }
