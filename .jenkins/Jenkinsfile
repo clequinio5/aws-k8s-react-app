@@ -9,21 +9,22 @@ pipeline {
               steps {
                   sh 'node --version'
                   sh 'npm --version'
+                  sh 'sudo chown -R 113:119 "/.npm"'
               }
          }
          stage('Build') {
               steps {
-                  sh 'sudo npm install'
+                  sh 'npm install'
               }
          }
          stage('Test') {
               steps {
-                  sh 'sudo npm run test'
+                  sh 'npm run test'
               }
          }
 		 stage('Release') {
               steps {
-                  sh 'sudo npm run build'
+                  sh 'npm run build'
               }
          }
          stage('Dockerize') {
