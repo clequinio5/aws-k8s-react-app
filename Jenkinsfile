@@ -69,7 +69,7 @@ pipeline {
                 sh "kubectl get deployment"
                 sh "kubectl get pod -o wide"
                 sh "kubectl get service/service-aws-k8s-react-app"
-                sh "curl $(kubectl get service/service-aws-k8s-react-app --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+                sh "curl \$(kubectl get service/service-aws-k8s-react-app --output jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
             }
         }
         stage("Remove all unused containers, networks, images") {
