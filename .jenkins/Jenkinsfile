@@ -1,0 +1,58 @@
+pipeline {
+     agent any
+     stages {
+         stage('Build') {
+              steps {
+                  sh 'npm install'
+              }
+         }
+         stage('Test') {
+              steps {
+                  sh 'npm run test'
+              }
+         }
+		 stage('Release') {
+              steps {
+                  sh 'npm run build'
+              }
+         }
+         stage('Dockerize') {
+              steps {
+                  sh 'docker build . -t clequinio/aws-k8s-react-app'
+              }
+         }
+         stage('Push Docker Image') {
+              steps {
+                  withDockerRegistry([url: "", credentialsId: "docker-credentials"]) {
+                      sh "docker tag clequinio/aws-k8s-react-app"
+                      sh "docker push clequinio/aws-k8s-react-app"
+                  }
+              }
+         }
+         stage('Deploying') {
+              steps{
+                  echo 'Deploying to AWS...'
+                  withAWS(credentials: 'aws-credentials', region: 'eu-west-3') {
+                        sh "aws eks --region eu-west-3 update-kubeconfig --name aws-k8s-react-app"
+                        sh 'kubectl config use-context arn:aws:eks:us-east-1:507569708173:cluster/aws-k8s-react-app'
+						sh 'kubectl apply -f k8s-config.yml'
+                        sh "kubectl get nodes"
+                        sh "kubectl get deployment"
+                        sh "kubectl get pod -o wide"
+                        sh "kubectl get service/client"
+                        sh "kubectl get service/server"
+                  }
+              }
+        }
+        stage("Cleaning up") {
+              steps{
+                    sh script "docker system prune", label "Cleaning up..."
+              }
+        }
+     }
+}
+
+
+
+
+
