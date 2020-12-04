@@ -49,7 +49,6 @@ pipeline {
                     sh './infra/exist-aws-k8s-cluster.sh || ./infra/create-aws-k8s-cluster.sh || exit 0'
                     sh "aws eks --region eu-west-3 update-kubeconfig --name aws-k8s-react-app"
                     sh 'kubectl config use-context arn:aws:eks:eu-west-3:507569708173:cluster/aws-k8s-react-app'
-                    //sh 'kubectl apply -f infra/aws-auth-cm.yml'
                     sh 'kubectl apply -f infra/k8s-config.yml'
                     sh "kubectl set image deployment/aws-k8s-react-app-deployment aws-k8s-react-app=clequinio/aws-k8s-react-app:latest"
                     sh "kubectl get nodes"
