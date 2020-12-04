@@ -55,8 +55,7 @@ pipeline {
                     sh "kubectl get nodes"
                     sh "kubectl get deployment"
                     sh "kubectl get pod -o wide"
-                    sh "kubectl get service/client"
-                    sh "kubectl get service/server"
+                    sh "kubectl get service/aws-k8s-react-app-project"
                 }
             }
     }
