@@ -32,6 +32,12 @@ pipeline {
                 sh "npm run build"
             }
         }
+        stage("Lint") {
+            steps {
+                sh "wget -O /bin/hadolint https://github.com/hadolint/hadolint/releases/download/v1.17.5/hadolint-Linux-x86_64 && chmod +x /bin/hadolint"
+                sh "hadolint infra/Dockerfile"
+            }
+        }
         stage("Dockerize app") {
             steps {
                 sh "docker build . -f infra/Dockerfile -t clequinio/aws-k8s-react-app:${env.BUILD_TAG}"
